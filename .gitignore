@@ -221,3 +221,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#dependencias que não podem subir para o gihub
+.venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.db
