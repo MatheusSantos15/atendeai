@@ -151,6 +151,10 @@ if pergunta:
                     try:
                         argumentos = json.loads(tc.function.arguments or "{}")
                         resultado = FUNCOES[tc.function.name](**argumentos)
+                        print(
+                            f"[TOOL] {tc.function.name} | "
+                            f"Argumentos: {argumentos}"
+                            )
                     except Exception as e:
                         resultado = json.dumps(
                             {"erro": f"Falha ao executar a ferramenta: {e}"},
