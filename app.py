@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from groq import Groq, RateLimitError, APIError
 
 from tools.pedidos import consultar_pedido
+from tools.cardapio import consultar_cardapio
 
 #Carregar variáveis de ambiente
 load_dotenv()
@@ -23,6 +24,10 @@ Se não possuir dados suficientes, explique sua limitação.
 
 Sempre que o cliente mencionar um número de pedido (ex.: 1001, 1002, 1003), chame a ferramenta consultar_pedido imediatamente.
 Só peça o número do pedido se nenhum número tiver sido informado na conversa.
+
+Quando o cliente perguntar sobre produtos, preços, disponibilidade ou quiser ver o cardápio, utilize a ferramenta consultar_cardapio.
+Se o cliente solicitar o cardápio completo, consulte a ferramente com produto vazio.
+Utilize os dados retornados pelas ferramentas para responder, sem inventar informações.
 """
 
 TOOLS = [
@@ -42,11 +47,38 @@ TOOLS = [
                 "required": ["pedido_id"],
             },
         },
-    }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "consultar_cardapio",
+            "description": (
+                "Consulta produtos, preços e disponibilidade"
+                "no cardápio da pizzaria."
+                "Pode pesquisar um produto pelo nome ou"
+                "retornar o cardápio completo."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "produto": {
+                        "type": "string",
+                        "description": (
+                            "Nome ou parte do nome do produto. "
+                            "Use uma string vazia para consultar "
+                            "todo o cardápio."
+                        ),
+                    }
+                },
+                "required": ["produto"],
+            },
+        },
+    },
 ]
 
 FUNCOES = {
     "consultar_pedido": consultar_pedido,
+    "consultar_cardapio": consultar_cardapio,
 }
 
 #Configuração da Interface
