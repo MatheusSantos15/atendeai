@@ -8,6 +8,7 @@ from groq import Groq, RateLimitError, APIError
 
 from tools.pedidos import consultar_pedido
 from tools.cardapio import consultar_cardapio
+from tools.empresa import consultar_info_empresa
 
 #Carregar variáveis de ambiente
 load_dotenv()
@@ -28,6 +29,9 @@ Só peça o número do pedido se nenhum número tiver sido informado na conversa
 Quando o cliente perguntar sobre produtos, preços, disponibilidade ou quiser ver o cardápio, utilize a ferramenta consultar_cardapio.
 Se o cliente solicitar o cardápio completo, consulte a ferramente com produto vazio.
 Utilize os dados retornados pelas ferramentas para responder, sem inventar informações.
+
+Quando o cliente perguntar sobre horários de funcionamento, formas de pagamento ou tempo médio de preparo, utilize a ferramenta consultar_info_empresa.
+Responda utilizando as informações retornadas, sem inventar dados não cadastrados.
 """
 
 TOOLS = [
@@ -53,10 +57,7 @@ TOOLS = [
         "function": {
             "name": "consultar_cardapio",
             "description": (
-                "Consulta produtos, preços e disponibilidade"
-                "no cardápio da pizzaria."
-                "Pode pesquisar um produto pelo nome ou"
-                "retornar o cardápio completo."
+                "Consulta produtos, preços e disponibilidade no cardápio da pizzaria. Pode pesquisar um produto pelo nome ou retornar o cardápio completo."
             ),
             "parameters": {
                 "type": "object",
@@ -64,9 +65,7 @@ TOOLS = [
                     "produto": {
                         "type": "string",
                         "description": (
-                            "Nome ou parte do nome do produto. "
-                            "Use uma string vazia para consultar "
-                            "todo o cardápio."
+                            "Nome ou parte do nome do produto. Use uma string vazia para consultar todo o cardápio."
                         ),
                     }
                 },
@@ -74,11 +73,27 @@ TOOLS = [
             },
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "consultar_info_empresa",
+            "description": (
+                "Consulta informações gerais da Pizzaria Pirituba, incluindo horários de funcionamento, formas de pagamento e tempo médio de preparo."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            },
+
+        },
+    },
 ]
 
 FUNCOES = {
     "consultar_pedido": consultar_pedido,
     "consultar_cardapio": consultar_cardapio,
+    "consultar_info_empresa": consultar_info_empresa,
 }
 
 #Configuração da Interface
