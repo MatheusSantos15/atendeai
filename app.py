@@ -1,27 +1,58 @@
+import json
 import os
+import time
 
 import streamlit as st
 from dotenv import load_dotenv
 from groq import Groq, RateLimitError, APIError
 
-#Carregar veriáveis de ambiente
+from tools.pedidos import consultar_pedido
+
+#Carregar variáveis de ambiente
 load_dotenv()
 
 MODELO = "openai/gpt-oss-20b"
 
 SYSTEM_PROMPT = """
-Você é o AtendeAI, assistente de atendimento de delivery.
+Você é o AtendeAI, assistente de atendimento da Pizzaria Pirituba.
 Responda em português brasileiro, com clareza e educação.
 Seja breve e objetivo.
 
 Não invente preços, cardápios, horários ou status de pedidos.
 Se não possuir dados suficientes, explique sua limitação.
+
+Sempre que o cliente mencionar um número de pedido (ex.: 1001, 1002, 1003), chame a ferramenta consultar_pedido imediatamente.
+Só peça o número do pedido se nenhum número tiver sido informado na conversa.
 """
+
+TOOLS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "consultar_pedido",
+            "description": "Consulta status, itens, valor total e previsão de entrega de um pedido pelo número.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "pedido_id": {
+                        "type": "string",
+                        "description": "Número do pedido, apenas dígitos. Exemplo: 1001.",
+                    }
+                },
+                "required": ["pedido_id"],
+            },
+        },
+    }
+]
+
+FUNCOES = {
+    "consultar_pedido": consultar_pedido,
+}
 
 #Configuração da Interface
 st.set_page_config(
     page_title="AtendeAI",
-    page_icon=":robot_face:"
+    page_icon="🤖",
 )
 
 st.title("AtendeAI 🤖")
@@ -56,64 +87,106 @@ pergunta = st.chat_input("Como posso ajudar?")
 if pergunta:
     st.session_state.mensagens.append({
         "role": "user",
-        "content": pergunta
+        "content": pergunta,
     })
 
     with st.chat_message("user"):
         st.markdown(pergunta)
 
-#Enviar apenas as ultimas 6 mensagens
-historico_recente = st.session_state.mensagens[-6:]
+    #Enviar apenas as ultimas 6 mensagens
+    historico_recente = st.session_state.mensagens[-6:]
 
-with st.chat_message("assistant"):
-    try:
-        inicio = __import__("time").perf_counter()
+    with st.chat_message("assistant"):
+        try:
+            inicio = time.perf_counter()
 
-        resposta_api = client.chat.completions.create(
-            model=MODELO,
-            messages=[
+            mensagens_api = [
                 {
                     "role": "system",
-                    "content": SYSTEM_PROMPT
+                    "content": SYSTEM_PROMPT,
                 },
-                *historico_recente
-            ],
-            temperature=0.3,
-            reasoning_effort="low",
-            max_completion_tokens=512
-        )
+                *historico_recente,
+            ]
 
-        tempo = __import__("time").perf_counter() - inicio
+            uso_total = 0
+            resposta = None
 
-        resposta = resposta_api.choices[0].message.content
+            # Repete enquanto o modelo pedir ferramentas (máximo 4 rodadas)
+            for rodada in range(4):
+                resposta_api = client.chat.completions.create(
+                    model=MODELO,
+                    messages=mensagens_api,
+                    tools=TOOLS,
+                    temperature=0.3,
+                    reasoning_effort="low",
+                    max_completion_tokens=1024,
+                )
 
-        if not resposta:
-            raise ValueError("Resposta vazia do modelo")
+                if resposta_api.usage:
+                    uso_total += resposta_api.usage.total_tokens
 
-        st.markdown(resposta)
+                mensagem = resposta_api.choices[0].message
 
-        st.session_state.mensagens.append({
-            "role": "assistant",
-            "content": resposta
-        })
+                if not mensagem.tool_calls:
+                    resposta = mensagem.content
+                    break
 
-        #Medição de utilização
-        uso = resposta_api.usage
+                mensagens_api.append({
+                    "role": "assistant",
+                    "content": mensagem.content or "",
+                    "tool_calls": [
+                        {
+                            "id": tc.id,
+                            "type": "function",
+                            "function": {
+                                "name": tc.function.name,
+                                "arguments": tc.function.arguments,
+                            },
+                        }
+                        for tc in mensagem.tool_calls
+                    ],
+                })
 
-        if uso:
-            st.caption(
-                f"Tokens: {uso.total_tokens} | "
-                f"Tempo: {tempo:.2f}s"
-            )
+                for tc in mensagem.tool_calls:
+                    try:
+                        argumentos = json.loads(tc.function.arguments or "{}")
+                        resultado = FUNCOES[tc.function.name](**argumentos)
+                    except Exception as e:
+                        resultado = json.dumps(
+                            {"erro": f"Falha ao executar a ferramenta: {e}"},
+                            ensure_ascii=False,
+                        )
 
-    except RateLimitError:
-        st.warning(
-            "Limite de utilização da Groq atingido."
-            "Tente novamente mais tarde."
-        )
+                    mensagens_api.append({
+                        "role": "tool",
+                        "tool_call_id": tc.id,
+                        "content": resultado,
+                    })
 
-    except (APIError, ValueError):
-        st.error(
-            "Não foi possível obter uma resposta."
-            "Verifique a configuração ou tente novamente"
-        )
+            tempo = time.perf_counter() - inicio
+
+            if not resposta:
+                raise ValueError("Resposta vazia do modelo após o loop de ferramentas")
+
+            st.markdown(resposta)
+
+            st.session_state.mensagens.append({
+                "role": "assistant",
+                "content": resposta,
+            })
+
+            # Medição de utilização
+            if uso_total:
+                st.caption(
+                    f"Tokens: {uso_total} | "
+                    f"Tempo: {tempo:.2f}s"
+                )
+
+        except RateLimitError as e:
+            st.warning(f"Limite de utilização da Groq atingido: {e}")
+
+        except APIError as e:
+            st.error(f"Erro na API da Groq: {e}")
+
+        except ValueError as e:
+            st.error(f"Resposta inválida: {e}")
