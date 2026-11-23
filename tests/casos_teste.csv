@@ -1,0 +1,6 @@
+id;categoria;pergunta;ferramenta_esperada;criterio_resposta
+1;pedido;Qual é o status do pedido 1001?;consultar_pedido;Informar o status cadastrado do pedido 1001
+2;pedido;Onde está o pedido 9999?;consultar_pedido;Informar que o pedido não foi encontrado
+3;cardapio;Quanto custa a pizza de calabresa?;consultar_cardapio;Informar o preço cadastrado de R$ 46,90
+4;empresa;Vocês aceitam Pix?;consultar_info_empresa;Confirmar que Pix é aceito
+5;geral;Olá, tudo bem?;nenhuma;Responder educadamente sem executar ferramentas
