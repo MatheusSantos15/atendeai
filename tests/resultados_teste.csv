@@ -1,0 +1,2 @@
+id;resposta_obtida;ferramenta_executada;resposta_correta;ferramenta_correta;tempo_segundos;observacoes
+1;"Status: Em preparo | Itens: Pizza Marguerita, Coca-Cola Lata 350 ml | Total: R$ 51,40 | Previsão de entrega: 20:15 | Se precisar de mais alguma informação, é só falar!";consultar_pedido;1;1;0.93;"Informações conferidas com a base de dados; ferramenta correta"
