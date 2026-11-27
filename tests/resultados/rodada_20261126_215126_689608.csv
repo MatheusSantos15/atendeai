@@ -1,0 +1,6 @@
+﻿id;resposta_obtida;ferramenta_executada;resposta_correta;ferramenta_correta;tempo_segundos;tokens;status_execucao;observacoes
+1;"O pedido **1001** está **Em preparo**.  
+Itens: Pizza Marguerita + Coca‑Cola Lata 350ml.  
+Total: R$ 51,40.  
+Previsão de entrega: **20:15**.";consultar_pedido;;1;0.97;1151;sucesso;
+2;Desculpe, não encontramos nenhum pedido com o número **9999** em nosso sistema. Se precisar de ajuda com outro pedido ou tiver mais alguma dúvida, estou à disposição.;consultar_pedido;;1;0.63;1089;sucesso;
