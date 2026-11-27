@@ -4,3 +4,19 @@ id;categoria;pergunta;ferramenta_esperada;criterio_resposta
 3;cardapio;Quanto custa a pizza de calabresa?;consultar_cardapio;Informar o preço cadastrado de R$ 46,90
 4;empresa;Vocês aceitam Pix?;consultar_info_empresa;Confirmar que Pix é aceito
 5;geral;Olá, tudo bem?;nenhuma;Responder educadamente sem executar ferramentas
+
+6;pedido;Qual é a situação do pedido 1002?;consultar_pedido;Informar o status cadastrado do pedido 1002
+7;pedido;Pode consultar o pedido 1003 para mim?;consultar_pedido;Informar os dados cadastrados do pedido 1003
+8;pedido;Meu pedido é o 1001. Já saiu para entrega?;consultar_pedido;Consultar o pedido e informar que ainda está em preparo
+9;cardapio;Vocês têm Sprite disponível?;consultar_cardapio;Informar que o Sprite está indisponível
+10;cardapio;Quais pizzas vocês vendem?;consultar_cardapio;Apresentar as pizzas cadastradas no cardápio
+11;cardapio;Quero ver o cardápio completo.;consultar_cardapio;Apresentar os produtos cadastrados no cardápio
+12;cardapio;Vocês vendem hambúrguer?;consultar_cardapio;Informar que o produto não foi encontrado
+13;empresa;Qual é o horário de funcionamento?;consultar_info_empresa;Informar os horários cadastrados da pizzaria
+14;empresa;Quanto tempo leva para preparar uma pizza?;consultar_info_empresa;Informar o tempo médio de preparo de 30 a 45 minutos
+15;empresa;Quais formas de pagamento vocês aceitam?;consultar_info_empresa;Listar as formas de pagamento cadastradas
+16;ambigua;Meu pedido está atrasado.;nenhuma;Solicitar o número do pedido antes de consultar
+17;ambigua;Quanto custa?;nenhuma;Perguntar qual produto o cliente deseja consultar
+18;ambigua;Você pode verificar isso para mim?;nenhuma;Solicitar esclarecimento sobre o que deve ser verificado
+19;geral;Obrigado pela ajuda!;nenhuma;Responder educadamente sem executar ferramentas
+20;geral;Você consegue me informar a previsão do tempo em São Paulo?;nenhuma;Explicar que não possui informações meteorológicas verificadas e manter o atendimento no escopo

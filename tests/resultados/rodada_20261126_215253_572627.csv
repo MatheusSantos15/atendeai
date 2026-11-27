@@ -1,0 +1,57 @@
+﻿id;resposta_obtida;ferramenta_executada;resposta_correta;ferramenta_correta;tempo_segundos;tokens;status_execucao;observacoes
+1;"O pedido **1001** está **Em preparo**.  
+Itens: Pizza Marguerita + Coca‑Cola Lata 350 ml.  
+Total: R$ 51,40.  
+Previsão de entrega: **20:15**.";consultar_pedido;1;1;1.03;1152;sucesso;
+2;Desculpe, mas não encontramos nenhum pedido com o número **9999** em nosso sistema. Se precisar de ajuda com outro pedido ou tiver mais alguma dúvida, estou à disposição.;consultar_pedido;1;1;0.64;1089;sucesso;
+3;A Pizza Calabresa custa **R$ 46,90**.;consultar_cardapio;1;1;0.89;1144;sucesso;
+4;Sim, aceitamos pagamento via Pix. Se precisar de mais alguma informação, é só falar!;consultar_info_empresa;1;1;0.81;1737;sucesso;
+5;Olá! Tudo bem, e você? Como posso ajudar hoje?;nenhuma;1;1;0.26;508;sucesso;
+6;"O pedido **1002** já saiu para entrega.  
+- **Itens**: Pizza Calabresa + Guaraná Antarctica Lata 350 ml  
+- **Total**: R$ 52,90  
+- **Previsão de entrega**: 19:50  
+
+Se precisar de mais alguma informação, é só avisar!";consultar_pedido;1;1;0.8;1172;sucesso;
+7;"Pedido 1003 encontrado!  
+- **Itens:** Pizza Quatro Queijos  
+- **Total:** R$ 53,90  
+- **Status:** Entregue (entregue às 19:10)";consultar_pedido;1;1;0.66;1140;sucesso;
+8;Olá! Seu pedido **1001** ainda está em **preparo**. A previsão de entrega é **20:15**. Se precisar de mais alguma coisa, é só falar!;consultar_pedido;1;1;0.53;1142;sucesso;
+9;Desculpe, mas o Sprite Lata 350 ml não está disponível no momento. Se quiser, posso sugerir outras opções de bebidas.;consultar_cardapio;1;1;0.66;1141;sucesso;
+10;"Aqui estão as pizzas que temos no cardápio:
+
+| ID | Pizza | Descrição | Preço |
+|----|-------|-----------|-------|
+| 101 | Marguerita | Molho de tomate, muçarela, rodelas de tomate e manjericão | R$ 44,90 |
+| 102 | Calabresa | Molho de tomate, muçarela, calabresa fatiada, cebola e orégano | R$ 46,90 |
+| 103 | Portuguesa | Molho de tomate, muçarela, presunto, ovos, palmito, ervilha e cebola | R$ 51,90 |
+| 104 | Quatro Queijos | Molho de tomate, muçarela, catupiry, gorgonzola e parmesão ralado | R$ 53,90 |
+| 105 | Frango com Catupiry | Molho de tomate, muçarela, frango desfiado e catupiry | R$ 49,90 |
+
+Se quiser saber mais detalhes ou fazer um pedido, é só falar!";consultar_cardapio;1;1;0.86;1907;sucesso;
+11;"**Cardápio completo – Pizzaria Pirituba**
+
+| ID | Produto | Categoria | Descrição | Preço | Disponível |
+|----|---------|-----------|-----------|-------|------------|
+| 101 | Pizza Marguerita | Pizzas | Molho de tomate, muçarela, rodelas de tomate e manjericão | R$ 44,90 | ✔️ |
+| 102 | Pizza Calabresa | Pizzas | Molho de tomate, muçarela, calabresa fatiada, cebola e orégano | R$ 46,90 | ✔️ |
+| 103 | Pizza Portuguesa | Pizzas | Molho de tomate, muçarela, presunto, ovos, palmito, ervilha e cebola | R$ 51,90 | ✔️ |
+| 104 | Pizza Quatro Queijos | Pizzas | Molho de tomate, muçarela, catupiry, gorgonzola e parmesão ralado | R$ 53,90 | ✔️ |
+| 105 | Pizza Frango com Catupiry | Pizzas | Molho de tomate, muçarela, frango desfiado e catupiry | R$ 49,90 | ✔️ |
+| 106 | Coca‑Cola Lata 350 ml | Bebidas | Refrigerante de cola em lata de 350 ml | R$ 6,50 | ✔️ |
+| 107 | Guaraná Antarctica Lata 350 ml | Bebidas | Refrigerante de guaraná em lata de 350 ml | R$ 6,00 | ✔️ |
+| 108 | Sprite Lata 350 ml | Bebidas | Refrigerante de limão em lata de 350 ml | R$ 6,00 | ❌ |
+| 109 | Fanta Laranja 2 L | Bebidas | Refrigerante de laranja garrafa de 2 litros | R$ 14,00 | ✔️ |
+| 110 | Coca‑Cola Zero 2 L | Bebidas | Refrigerante de cola zero açúcar garrafa de 2 litros | R$ 15,00 | ✔️ |
+
+Se quiser saber mais detalhes sobre algum item ou fazer um pedido, é só falar!";consultar_cardapio;1;1;1.24;2154;sucesso;
+12;;nao_verificada;0;;0.06;;erro;RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7nyvkbmek69wfn7gmc45ng9` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7282, Requested 739. Please try again in 157.5ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+13;;nao_verificada;0;;0.29;;erro;RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7nyvkbmek69wfn7gmc45ng9` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7347, Requested 852. Please try again in 1.4925s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+14;;nao_verificada;0;;0.52;;erro;RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7nyvkbmek69wfn7gmc45ng9` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7389, Requested 789. Please try again in 1.335s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+15;;nao_verificada;0;;0.64;;erro;RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m7nyvkbmek69wfn7gmc45ng9` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7455, Requested 649. Please try again in 779.999999ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+16;Para eu poder verificar o status do seu pedido, poderia me informar o número do pedido, por favor?;nenhuma;1;1;0.32;509;sucesso;
+17;Para poder informar o preço preciso, poderia me dizer qual produto ou pizza você está interessado? Se já tiver um número de pedido, por favor informe-o.;nenhuma;1;1;2.01;543;sucesso;
+18;Claro! Para verificar o status do seu pedido, preciso do número do pedido (ex.: 1001, 1002, 1003). Por favor, informe o número.;nenhuma;1;1;0.3;529;sucesso;
+19;De nada! Se precisar de mais alguma coisa, é só chamar.;nenhuma;1;1;0.29;503;sucesso;
+20;Desculpe, mas não tenho acesso a informações sobre previsão do tempo. Posso ajudar com dúvidas sobre a Pizzaria Pirituba, como cardápio, horários de funcionamento ou status de pedidos. Como posso ajudar?;nenhuma;1;1;0.31;552;sucesso;

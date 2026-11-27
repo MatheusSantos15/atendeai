@@ -1,0 +1,9 @@
+﻿id;resposta_obtida;ferramenta_executada;resposta_correta;ferramenta_correta;tempo_segundos;observacoes
+1;"O pedido **1001** está **Em preparo**.  
+Itens: Pizza Marguerita + Coca‑Cola Lata 350 ml.  
+Total: R$ 51,40.  
+Previsão de entrega: **20:15**.";consultar_pedido;;1;0.82;
+2;Desculpe, mas não encontramos nenhum pedido com o número **9999** em nosso sistema. Se precisar de ajuda com outro pedido ou quiser verificar se o número está correto, por favor, me informe.;consultar_pedido;;1;0.83;
+3;A Pizza Calabresa custa **R$ 46,90**.;consultar_cardapio;;1;0.61;
+4;;erro_na_execucao;0;0;;Resposta vazia do modelo após o loop de ferramentas
+5;Olá! Tudo bem, e você? Como posso ajudar hoje?;nenhuma;;1;0.4;

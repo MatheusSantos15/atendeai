@@ -1,0 +1,10 @@
+﻿id;resposta_obtida;ferramenta_executada;resposta_correta;ferramenta_correta;tempo_segundos;tokens;status_execucao;observacoes
+12;Desculpe, mas a Pizzaria Pirituba não oferece hambúrgueres em nosso cardápio. Se quiser conhecer as opções de pizza, bebidas ou outras delícias, posso enviar o cardápio completo para você.;consultar_cardapio;1;1;0.97;1732;sucesso;
+13;"O horário de funcionamento da Pizzaria Pirituba é:
+
+- **Segunda a quinta:** 18:00 às 23:00  
+- **Sexta a domingo:** 18:00 às 00:00  
+
+Se precisar de mais alguma informação, é só falar!";consultar_info_empresa;1;1;1.04;1773;sucesso;
+14;O tempo médio de preparo de uma pizza na Pizzaria Pirituba é de **30 a 45 minutos**.;consultar_info_empresa;1;1;0.7;1134;sucesso;
+15;Formas de pagamento aceitas: Pix, Cartão de Crédito, Cartão de Débito e Dinheiro.;consultar_info_empresa;1;1;0.57;1134;sucesso;
